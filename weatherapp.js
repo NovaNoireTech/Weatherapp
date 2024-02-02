@@ -3,15 +3,18 @@
 // document.body.appendChild(btn)
 
 
-async function displayweather () {
-    try{
-            
-    
-        const api = await fetch(`https://api.openweathermap.org/data/2.5/weather?q={city name}&appid={API key}`);
-    
-        const response = await fetch(apiUrl);
-        const data = await response.json();
-    }
+const API_key = '' // PLUG in YOUR API KEY HERE!!!!
+
+async function displayweather(city_name) {
+
+
+
+    const response = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${city_name}&appid=${API_key}`);
+    const data = await response.json();
+    console.log(data); // THIS is the object we're getting as a response to our api call and will use to populate the page,
+    // You're on the right track with the func on line 39 here but need to go through and make sure everything is plugged in!  
+    //Once the data is matching we just need to get it rendered on the page!
+    displayweather2(data);
 
 
     // } catch (error) {
@@ -23,15 +26,18 @@ async function displayweather () {
 // const error = document.getElementById('error');
 
 const form = document.getElementById("form")
-form.addEventListener ("submit", (event) => {
+form.addEventListener("submit", (event) => {
     event.preventDefault();
-    let city= document.getElementById("city")
-
+    let city = document.getElementById("city");
+    displayweather(city.value);
     console.log(city.value)
+
+
+    
 });
 
-function displayweather(weatherdata) {
-    const high= weatherdata.hightemperature;
+function displayweather2(weatherdata) {
+    const high = weatherdata.hightemperature;
     const low = weatherdata.lowtemperature;
     const forecast = weatherdata.forecast;
     const humidity = weatherdata.humidity;
@@ -44,7 +50,7 @@ function displayweather(weatherdata) {
         humidity: humidity
     };
 
-    return displayweather;
+    console.log(displayweather);
 }
 
 
@@ -81,5 +87,5 @@ function displayweather(weatherdata) {
 //         <div class = "weather_description">${main.temp}${temperatureSymobol} - ${convertedDateAndTime.substring(10)} - ${convertedDateAndTime.substring(5, 10)} </div>
 //     `;
 //     return description;
-    
+
 
